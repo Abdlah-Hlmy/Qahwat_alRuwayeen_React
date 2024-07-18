@@ -54,7 +54,9 @@ export default function Login() {
         }
       }
     } catch (error) {
-      toast.error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+      toast.error('البريد الإلكتروني أو كلمة المرور غير صحيحة', {
+        autoClose: 3000,
+      });
     }
   };
 

@@ -28,7 +28,9 @@ export default function Registration() {
         }
       }
     } catch (error) {
-      toast.error("إسم المستخدم أو البريد الإلكتروني أو كلمة المرور غير صحيحة");
+      toast.error("إسم المستخدم أو البريد الإلكتروني أو كلمة المرور غير صحيحة", {
+        autoClose: 3000,
+      });
     }
   };
 

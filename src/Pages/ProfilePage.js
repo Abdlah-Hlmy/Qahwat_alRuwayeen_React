@@ -27,22 +27,28 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.id)
-  const favoriteBooks = useSelector((state) => state.favoriteBooks[userId] || []);
+  const userId = useSelector((state) => state.user.id);
+  const favoriteBooks = useSelector(
+    (state) => state.favoriteBooks[userId] || []
+  );
   const libraryBooks = useSelector((state) => state.libraryBooks[userId] || []);
   const books = useSelector((state) => state.books);
   const [activeTab, setActiveTab] = useState('myworks');
 
-  const bookExists = (bookId) => books.some(book => book.id === bookId);
+  const bookExists = (bookId) => books.some((book) => book.id === bookId);
 
-  const filteredLibraryBooks = libraryBooks.filter(book => book && book.id && bookExists(book.id));
+  const filteredLibraryBooks = libraryBooks.filter(
+    (book) => book && book.id && bookExists(book.id)
+  );
 
-  const filteredFavoriteBooks = favoriteBooks.filter(book => book && book.id && bookExists(book.id));
+  const filteredFavoriteBooks = favoriteBooks.filter(
+    (book) => book && book.id && bookExists(book.id)
+  );
 
   useEffect(() => {
     if (books.length === 0) {
-      dispatch(clearFavorite(userId))
-      dispatch(clearLibrary(userId))
+      dispatch(clearFavorite(userId));
+      dispatch(clearLibrary(userId));
     }
   }, [books, dispatch]);
 
@@ -125,8 +131,14 @@ export default function ProfilePage() {
       }
 
       setLoading(false);
-      toast.success('تم تحديث الملف الشخصي بنجاح', { autoClose: 3000 });
-      navigate(`/profiles/${newUsername.toLowerCase().split(' ').join('-')}`);
+      toast.success('تم تحديث الملف الشخصي بنجاح', {
+        autoClose: 3000,
+        onClose: () => {
+          navigate(
+            `/profiles/${newUsername.toLowerCase().split(' ').join('-')}`
+          );
+        },
+      });
     } catch (error) {
       setLoading(false);
       toast.error('حدث خطأ أثناء تحديث الملف الشخصي', { autoClose: 3000 });
@@ -136,14 +148,12 @@ export default function ProfilePage() {
   const renderContent = () => {
     switch (activeTab) {
       case 'myworks':
-        return (
-          <MyBooks />
-        );
+        return <MyBooks />;
       case 'library':
         return filteredLibraryBooks.length === 0 ? (
           <div>
             <span className="text-sm font-semibold block mb-4">
-              مكتبتي <span className='text-red-500'>(0)</span>
+              مكتبتي <span className="text-red-500">(0)</span>
             </span>
             <p className="bg-amber-100 p-2 mt-4">
               لا يوجد أي كتاب في مكتبتك بعد.
@@ -152,7 +162,10 @@ export default function ProfilePage() {
         ) : (
           <div>
             <span className="text-sm font-semibold block mb-4">
-              مكتبتي <span className='text-red-500'>({filteredLibraryBooks.length})</span>
+              مكتبتي{' '}
+              <span className="text-red-500">
+                ({filteredLibraryBooks.length})
+              </span>
             </span>
             <div className="grid grid-cols-auto-small max-sm:grid-cols-2 gap-x-3 gap-y-5">
               <BookCard books={filteredLibraryBooks} height={270} />
@@ -163,14 +176,17 @@ export default function ProfilePage() {
         return filteredFavoriteBooks.length === 0 ? (
           <div>
             <span className="text-sm font-semibold block mb-4">
-              المفضلات <span className='text-red-500'>(0)</span>
+              المفضلات <span className="text-red-500">(0)</span>
             </span>
             <p className="bg-amber-100 p-2 mt-4">لا توجد مفضلات بعد.</p>
           </div>
         ) : (
           <div>
             <span className="text-sm font-semibold block mb-4">
-              المفضلات <span className='text-red-500'>({filteredFavoriteBooks.length})</span>
+              المفضلات{' '}
+              <span className="text-red-500">
+                ({filteredFavoriteBooks.length})
+              </span>
             </span>
             <div className="grid grid-cols-auto-small max-sm:grid-cols-2 gap-x-3 gap-y-5">
               <BookCard books={filteredFavoriteBooks} height={270} />
@@ -282,15 +298,13 @@ export default function ProfilePage() {
                   alt="profilePhoto"
                   className="w-20 rounded-full mx-auto"
                 ></img>
-                <p className="font-semibold text-base mt-2">
-                  {username}
-                </p>
+                <p className="font-semibold text-base mt-2">{username}</p>
               </div>
               <ul className="text-right">
                 <li
                   className={`border-b py-[10px] px-1 cursor-pointer transition-all ${activeTab === 'myworks'
-                    ? 'text-orange-800 font-semibold'
-                    : ''
+                      ? 'text-orange-800 font-semibold'
+                      : ''
                     }`}
                   onClick={() => setActiveTab('myworks')}
                 >
@@ -302,8 +316,8 @@ export default function ProfilePage() {
                 </li>
                 <li
                   className={`border-b py-[10px] px-1 cursor-pointer transition-all ${activeTab === 'library'
-                    ? 'text-orange-800 font-semibold'
-                    : ''
+                      ? 'text-orange-800 font-semibold'
+                      : ''
                     }`}
                   onClick={() => setActiveTab('library')}
                 >
@@ -315,8 +329,8 @@ export default function ProfilePage() {
                 </li>
                 <li
                   className={`border-b py-[10px] px-1 cursor-pointer transition-all ${activeTab === 'favorites'
-                    ? 'text-orange-800 font-semibold'
-                    : ''
+                      ? 'text-orange-800 font-semibold'
+                      : ''
                     }`}
                   onClick={() => setActiveTab('favorites')}
                 >
@@ -328,8 +342,8 @@ export default function ProfilePage() {
                 </li>
                 <li
                   className={`border-b py-[10px] px-1 cursor-pointer transition-all ${activeTab === 'editProfile'
-                    ? 'text-orange-800 font-semibold'
-                    : ''
+                      ? 'text-orange-800 font-semibold'
+                      : ''
                     }`}
                   onClick={() => setActiveTab('editProfile')}
                 >

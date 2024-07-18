@@ -8,11 +8,13 @@ import { updateUser } from '../rtk/slices/userSlice';
 
 export default function EditBook() {
   const { bookTitle } = useParams();
-  const { id, username, token, authorInfo } = useSelector(state => state.user);
+  const { id, username, token, authorInfo } = useSelector(
+    (state) => state.user
+  );
   const [bookId, setBookId] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const [formData, setFormData] = useState({
     authorName: '',
     bookTitle: '',
@@ -26,7 +28,11 @@ export default function EditBook() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:1337/api/books?filters[bookTitle][$eq]=${bookTitle.split('-').join(' ')}`);
+        const response = await axios.get(
+          `http://localhost:1337/api/books?filters[bookTitle][$eq]=${bookTitle
+            .split('-')
+            .join(' ')}`
+        );
         const book = response.data.data[0].attributes;
         setFormData({
           authorName: book.authorName,
@@ -57,14 +63,17 @@ export default function EditBook() {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    formDataToSend.append('data', JSON.stringify({
-      authorName: formData.authorName,
-      bookTitle: formData.bookTitle,
-      Classification: formData.Classification,
-      description: formData.description,
-      authorInfo: formData.authorInfo,
-      addedBy: id,
-    }));
+    formDataToSend.append(
+      'data',
+      JSON.stringify({
+        authorName: formData.authorName,
+        bookTitle: formData.bookTitle,
+        Classification: formData.Classification,
+        description: formData.description,
+        authorInfo: formData.authorInfo,
+        addedBy: id,
+      })
+    );
 
     if (formData.bookCover) {
       formDataToSend.append('files.bookCover', formData.bookCover);
@@ -75,27 +84,38 @@ export default function EditBook() {
     }
 
     try {
-      await axios.put(`http://localhost:1337/api/books/${bookId}`, formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.put(
+        `http://localhost:1337/api/books/${bookId}`,
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       await axios.put(
         `http://localhost:1337/api/users/${id}`,
         { authorInfo: formData.authorInfo },
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
       dispatch(updateUser({ authorInfo: formData.authorInfo }));
 
-      navigate(`/profiles/${username.split(' ').join('-')}`);
+      toast.success('تم تحديث الكتاب بنجاح', {
+        autoClose: 3000,
+        onClose: () => {
+          navigate(`/profiles/${username.split(' ').join('-')}`);
+        },
+      });
     } catch (error) {
-      toast.error('حدث خطأ أثناء تحديث الكتاب');
+      toast.error('حدث خطأ أثناء تحديث الكتاب', {
+        autoClose: 3000,
+      });
     }
   };
 

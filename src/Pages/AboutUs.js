@@ -21,10 +21,10 @@ const AboutUs = () => {
                 الرئيسية
               </Link>{' '}
               / من نحن
-            </div>
+            </div>{' '}
             <div className="flex justify-center gap-3">
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/groups/845315093060311"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -34,7 +34,7 @@ const AboutUs = () => {
                 />
               </a>
               <a
-                href="https://wa.me/1234567890"
+                href="https://chat.whatsapp.com/KVnzC1btSR73Ai8x1JqCMs"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -44,7 +44,7 @@ const AboutUs = () => {
                 />
               </a>
               <a
-                href="https://telegram.me/yourchannel"
+                href="https://t.me/novelrsqahwa"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -61,12 +61,12 @@ const AboutUs = () => {
               قهوة الروائيين{' '}
             </span>
             مكان يجتمع به القارئ والكاتب، يهدف لمساعدة أي شخص لديه موهبة الكتابة
-            وتطويره حتىٰ يصل لهدفه عن طريق فقرات علىٰ مدار الأسبوع لمشاركة الخواطر
-            والنصوص وأيضًا الارتجالات، ومساعدة كُل قارئ في العثور علىٰ الكثير من
-            الكتب والروايات التي ستنال اعجاب ذوقه عن طريق المُراجعات المميزة التي
-            يُقدمها مسؤول المجموعة بجانب العديد من الأعضاء المميزين وأيضًا يسمح
-            لأي قارئ بمشاركة آرائه ومُراجعاته ما لم تنتهك معايير فيسبوك وقوانين
-            الجروب.
+            وتطويره حتىٰ يصل لهدفه عن طريق فقرات علىٰ مدار الأسبوع لمشاركة
+            الخواطر والنصوص وأيضًا الارتجالات، ومساعدة كُل قارئ في العثور علىٰ
+            الكثير من الكتب والروايات التي ستنال اعجاب ذوقه عن طريق المُراجعات
+            المميزة التي يُقدمها مسؤول المجموعة بجانب العديد من الأعضاء المميزين
+            وأيضًا يسمح لأي قارئ بمشاركة آرائه ومُراجعاته ما لم تنتهك معايير
+            فيسبوك وقوانين الجروب.
           </p>
           <div className="flex gap-4 mt-4 max-md:flex-col">
             <div className="w-full md:w-1/2 bg-white p-4 rounded-md border">
